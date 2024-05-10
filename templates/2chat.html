@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <title>SEU PEDIDO DE AJUDA FOI ENVIADO COM SUCESSO</title>
+    
+    <style>
+         body {
+            font-family: "Lato", sans-serif;
+            background-color: #f4f4f4;
+        }
+        h1 {
+ 
+            color:#333;
+            font-size:2em;
+            height: 5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+          
+        }
+     
+        .output {
+            color:#333;
+            display: flex;
+            justify-content: space-between;
+            width: 60%;  
+            align-self: center;
+            border: 1px solid #ddd;
+            padding:8px 16px;
+            align-items: center;
+            margin: 10px auto;
+            border-radius: 6px;
+            background-color: #ffffff;
+        }
+        .output dl {
+            padding: 8px 0 0 8px;
+        } 
+        .output dl > dt:nth-child(2) {
+            background:rgb(248, 248, 248);
+           border-radius: 8px;
+           padding:8px 16px;
+
+        } 
+        .output dl > dt:last-child {
+            margin:0 0 0 16px; 
+        }
+        
+        .output dt {
+            font-weight: bold;
+            margin:0 0 4px 16px;
+        }
+        .output dd {
+            margin:0px 0 16px 32px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PEDIDO DE AJUDA FOI ENVIADO</h1>
+    <div class="output" style="background-color: {{ result.state }}">
+        <dl>
+            {% for line in result.output.split('**') if line.strip() %}
+                {% if loop.index is even %}
+                    <dd>{{ line.strip() }}</dd>
+                {% else %}
+                    <dt>{{ line.strip() }}</dt>
+                {% endif %}
+            {% endfor %}
+        </dl>
+    </div>
+    
+    
+</body>
+</html>

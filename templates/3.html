@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Retrieve Output</title>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+            background-color: #f4f4f4;
+        }
+        h1 {
+ 
+            color:#333;
+            font-size:2em;
+            height: 5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+          
+        }
+        .output {
+            color:#333;
+            display: flex;
+            justify-content: space-between;
+            width: 60%;  
+            align-self: center;
+            border: 1px solid #ddd;
+            padding:8px 16px;
+            align-items: center;
+            margin: 10px auto;
+            border-radius: 6px;
+            background-color: #ffffff;
+        }
+        .output dl {
+            padding: 8px 0 0 8px;
+        } 
+        .output dl > dt:nth-child(2) {
+            background:rgb(248, 248, 248);
+           border-radius: 8px;
+           padding:8px 16px;
+
+        } 
+        .output dl > dt:last-child {
+            margin:0 0 0 16px; 
+        }
+        
+        .output dt {
+            font-weight: bold;
+            margin:0 0 4px 16px;
+        }
+        .output dd {
+            margin:0px 0 16px 32px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            height: 100%;  /* Add this line */
+        }
+        .buttons button {
+            flex-grow: 1;  /* Change this line */
+            margin-bottom: 10px;
+            height:64px;
+            border:none;
+            padding: 16px 24px;
+            border-radius: 6px;
+            font-weight: normal;
+            font-size:0.9rem;
+            box-sizing: border-box;  /* Add this line */
+            
+        }    
+        .orange {
+            background-color: orange;
+        }
+        .black {
+            background-color: black;
+            color: #fff;
+        }
+        .title {
+            background-color: #f4f4f4; 
+            color:#706c6c; 
+            font-size:0.9em; 
+            padding: 10px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            margin:0 0 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PESSOAS PRECISANDO DE AJUDA</h1>
+    <div style="display: flex; justify-content: center; gap: 10px;"> 
+        <div style="background-color: #f4f4f4; font-size:0.8em; padding: 10px; display: flex; align-items: center; justify-content: center;">LEGENDA</div>
+        <div style="background-color: #ffffff; font-size:0.8em; padding: 10px; display: flex; align-items: center; justify-content: center;">PRECISANDO DE AJUDA</div>
+        <div style="background-color: orange; font-size:0.8em; padding: 10px; display: flex; align-items: center; justify-content: center;">AJUDA EM PROGRESSO</div>
+        <div style="background-color: black; font-size:0.8em; color: #fff; padding: 10px; display: flex; align-items: center; justify-content: center;">AJUDA FINALIZADA</div>
+    </div>
+    <div class="title">ATUALIZE A COMUNIDADE SOBRE O STATUS DA AJUDA QUE VOCÊ ESTÁ PRESTANDO</div>
+    
+    {% for result in results %}
+    <div class="output" style="background-color: {{ result.state }}">
+        <dl>
+            {% if result.output is not none %}
+                {% for line in result.output.split('**') if line.strip() %}
+                    {% if loop.index is even %}
+                        <dd>{{ line.strip() }}</dd>
+                    {% else %}
+                        <dt>{{ line.strip() }}</dt>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </dl>
+        <div class="buttons">
+            <button class="orange" onclick="changeState({{ result.id }}, 'orange')">Iniciar Ajuda</button>
+            <button class="black" onclick="changeState({{ result.id }}, 'black')">Finalizar Ajuda</button>
+        </div>
+    </div>
+    {% endfor %}
+
+    <script>
+        function changeState(resultId, newState) {
+            fetch('/change_state', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `result_id=${resultId}&new_state=${newState}`
+            }).then(function(response) {
+                if (!response.ok) {
+                    alert('Could not change state. Please try again.');
+                } else {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

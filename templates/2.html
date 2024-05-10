@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>ENVIE SEU PEDIDO DE AJUDA</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: "Lato", sans-serif;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color:#333;
+            font-size:2em;
+            height: 5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+          
+        }
+        p{
+            color:#686565;
+        }
+        form {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .custom-file-upload {
+            box-shadow: 0 4px 10px 0 rgba(24, 39, 75, 0.30);
+            border-radius: 8px;
+            width: 60%;
+            height: 25vh;
+            font-size: 1.6rem;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 1vh auto;
+            text-transform: uppercase;
+            background-color: #e2323d;
+            padding: 5rem 2rem;
+            text-align: center;
+            line-height: 2.5rem;
+
+            /*
+            padding: 1rem;
+            font-size: 1.2rem;
+            color: white;
+            background-color: red;
+            display: inline-block;
+            cursor: pointer;
+            width: 80%;
+            height: 35vh;
+            text-align: center;
+            margin: 3vh 0;*/
+        }
+        .custom-file-upload input[type='file'] {
+            display: none;
+        }
+        textarea {
+            width: 60%;
+            border:1px solid #ccc; 
+            border-radius: 8px;
+            height: 35vh;
+            padding: 2rem;
+            font-size: 1.2rem;
+        }
+        input[type="submit"] {
+            width: 68%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            color: white;
+            background-color: #53cb8f;
+            border: none;
+            cursor: pointer;
+            margin: 3vh auto;
+            border-radius: 8px;
+        }
+        .file-name {
+            display: block;
+            text-transform: capitalize;
+            margin-top: 70px;
+            font-size: 1rem;
+        }
+      
+    </style>
+</head><body>
+    <h1>ENVIE SEU PEDIDO DE AJUDA</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label class="custom-file-upload">
+            <input type="file" name="file" onchange="updateFileName(event)">
+            Clique aqui para enviar qualquer tipo de arquivo
+            <span class="file-name">Nenhum arquivo selecionado</span>
+        </label>
+        <p>Ou use o campo abaixo para escrever seu pedido</p>
+        <textarea name="text" rows="4" cols="50" placeholder="Escreva seu pedido de ajuda aqui"></textarea>
+        <input type="submit" value="Enviar">
+    </form>
+    <script>
+        function updateFileName(event) {
+            var fileName = event.target.files[0] ? event.target.files[0].name : 'Nenhum arquivo selecionado';
+            document.querySelector('.file-name').textContent = fileName;
+        }
+    </script>
+</body>
+</html>
