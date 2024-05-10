@@ -27,6 +27,8 @@ Este site oferece uma solução inovadora para conectar pessoas em situações d
 - Desenvolvimento web: Python, Flask, HTML, CSS, Javascript.
 - Inteligência artificial: Google Gemini.
 - Banco de dados: SQLite.
+  
+- USE OS ARQUIVOS dentro da pasta "arquivos" para testar o site
 
 ## Próximos passos
 
