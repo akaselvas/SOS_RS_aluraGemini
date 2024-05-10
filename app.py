@@ -20,7 +20,7 @@ class Result(db.Model):
 with app.app_context():
     db.create_all()
 
-genai.configure(api_key="AIzaSyCM6YGRrLXQW-vB-SRKbwRwzsH7_FMw1c0")
+genai.configure(api_key="YOUR API KEY HERE")
 
 generation_config = {
   "temperature": 1,
